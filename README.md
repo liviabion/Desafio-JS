@@ -7,7 +7,7 @@ PTA é uma fase do processo seletivo do CITI, a qual ensinamos conhecimentos té
 
 ## Desafio 
 
-Ajude Pedro Queiroz! Perceba que Pedro queiroz foge da área da tela e isso faz com que ele se perca. Impeça que Pedro Queiroz ultrapasse a tela, implementando colisões na borda.
+Ajude Jaypers! Perceba que Jaypers foge da área da tela e isso faz com que ele se perca. Impeça que Jaypers ultrapasse a tela, implementando colisões na borda.
 
 
 <p align = "center">
