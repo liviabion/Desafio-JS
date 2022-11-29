@@ -1,7 +1,6 @@
 const character = document.getElementsByClassName("character")[0];
 const containerCharacter = document.getElementsByClassName("container-character")[0];
 
-
 const VELOCITY = 10;
 
 const SCREEN_WIDTH = screen.width;
@@ -46,6 +45,24 @@ window.addEventListener("keydown", (event) => {
         character.classList.add("turnRight");
         xPosition += VELOCITY;
     }
+
+    if(xPosition <= 0){
+        xPosition = 0;
+    }
+
+    if(xPosition >= SCREEN_WIDTH){
+        xPosition = SCREEN_WIDTH;
+    }
+
+    if(yPosition <= 0){
+        yPosition = 0;
+    }
+
+    if(yPosition >= SCREEN_HEIGHT){
+        yPosition = SCREEN_HEIGHT;
+    }
+
+
 
     containerCharacter.style.top = `${yPosition}px`;
     containerCharacter.style.left = `${xPosition}px`
