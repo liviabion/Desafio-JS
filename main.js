@@ -1,6 +1,7 @@
+//Constante que representa o personagem
 const character = document.getElementsByClassName("character")[0];
+//Constante que representa o box em que o personagem está(O espaço que ele vai ocupar)
 const containerCharacter = document.getElementsByClassName("container-character")[0];
-
 
 /*Constante que determina a velocidade do personagem(10), como é uma const essa velocidad é fixa.
 Quando o personagem for se mover sempre será adicionado 10 no valor de sua coordenada x ou y*/
@@ -97,19 +98,23 @@ window.addEventListener("keydown", (event) => {
 
     //"Se a posição do eixo x for mmaior ou igual a largura da tela - 100"
     if(xPosition >= (SCREEN_WIDTH - 100)){
+        //x = SCREEN_WIDTH - 100 (largura da tela -  100)
         xPosition = (SCREEN_WIDTH - 100);
     }
         
     //"Se a posição do eixo y for menor ou igual a 0"
     if(yPosition <= 0){
+        //y = 0
         yPosition = 0;
     }
 
     //"Se a posição do eixo y for maior ou igual a altura da tela menos 100"
     if(yPosition >= (SCREEN_HEIGHT - 180)){
+        //x = SCREEN_WIDTH - 100 (altura da tela -  100)
         yPosition = (SCREEN_HEIGHT - 180);
-
     }
+
+    console.log(SCREEN_HEIGHT)
 
     containerCharacter.style.top = `${yPosition}px`;
     containerCharacter.style.left = `${xPosition}px`;
