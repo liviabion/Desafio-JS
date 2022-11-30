@@ -50,20 +50,19 @@ window.addEventListener("keydown", (event) => {
         xPosition = 0;
     }
 
-    if(xPosition >= SCREEN_WIDTH){
-        xPosition = SCREEN_WIDTH;
+    if(xPosition >= (SCREEN_WIDTH - 100)){
+        xPosition = (SCREEN_WIDTH - 100);
     }
 
     if(yPosition <= 0){
         yPosition = 0;
     }
 
-    if(yPosition >= SCREEN_HEIGHT){
-        yPosition = SCREEN_HEIGHT;
+    if(yPosition >= (SCREEN_HEIGHT - 180)){
+        yPosition = (SCREEN_HEIGHT - 180);
+
     }
 
-
-
     containerCharacter.style.top = `${yPosition}px`;
-    containerCharacter.style.left = `${xPosition}px`
+    containerCharacter.style.left = `${xPosition}px`;
 });
