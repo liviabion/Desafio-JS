@@ -23,99 +23,78 @@ let xPosition = 500;
 //Posição inicial da coordenada y
 let yPosition = 300;
 
-/*Essa constante junta todas as teclas que vão ser utilizadas no jogo em uma só
+/*Essa constante junta em uma array(lista) todas as teclas que vão ser utilizada no jogo e no código
 Arrow siginifica as setinhas do teclado, e up, down, rigth e left é cima, baixo, direita e esquerda*/
 const keysAvaiable = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
-/*Essa constante junta todas as direções que o benequinho vai se movimentar*/
+/*Essa constante junta em uma array(lista) todas as direções que o benequinho vai se movimentar, para usalas no código*/
 const directions = ["turnUp", "turnLeft", "turnRight", "turnDown"];
 
-/* */
+/*Essa função vai alertar quando uma tecla for apertada, vai ser responsável por fazer o personagem andar*/
 window.addEventListener("keydown", (event) => {
-    const key  = event.key;
+    //Essa constante vai armazenar qual a tecla que foi apertada
+    const key = event.key;
 
-    /**/
+    /*Essa constante vai verificar se a tecla pressionada pertence ao array keysAvaible*/
     const keyPressedAvaiable =  keysAvaiable.some((currentKey) => {
+        //Caso pertença o currenKey vai armazenar a tecla que apertou (key)
         return currentKey === key;
     })
 
+    //Caso não, não irá acontecer nada
     if(!keyPressedAvaiable) return;
 
+    //Aqui é a função responsável por fazer o personagem mudar de direção
+    //Vai percorrer o array directions
     directions.forEach((direction) => {
+        //Aqui é uma condinional que se existir a característica, vai remover a direção que estava antes
         if(character.classList.contains(direction)) character.classList.remove(direction);
     })
 
     /*Início das condicionantes que estão relacionadas ao pressionamento de tecla
-    Vão condionar uma ação a uma consequência
-    Ação: aperto da tecla
+    Início da limitação de tela (colisões)
+    Vão condionar duas características a uma consequência
+    Características: qual tecla foi apertada e se o personagem está na limitação da tela
     Consequênica: Mudar a direção da imagem do personagem e ganhar ou perder velocidade me determinado eixo*/
 
-    //"Se a tecla setinha para cima for apertada"
-    if(key === "ArrowUp"){
-        //Imagem do personagem na forma de subida
+    /*Se a tecla que foi apertada é: setinha para cima
+    E a posição do y é maior que 0 (pois se não tiver essa condição ele passa direto)*/
+    if(key === "ArrowUp" && yPosition > 0){
+        //O Personagem vai ter a característica de subida
         character.classList.add("turnUp");
-        //A posição no eixo y vai perder 10 (VELOCTY)
+        //A posição no eixo y vai perder 10 (VELOCTY), fazendo ele subir pois quanto mais perto da margem superior menor o y
         yPosition -= VELOCITY;
     }
 
-    //"Se a tecla setinha para baixo for apertada"
-    if(key === "ArrowDown"){
-        //Imagem do personagem na forma de descida
+    /*Se a tecla que foi apertada é: setinha para baixo
+    E a posição do y é menor que a altura da tela - 180
+    Estou diminuindo 180 para corrigir e ele ficar certinho na margem, 100 do tamanho do personagem mais 80 de correção*/
+    if(key === "ArrowDown" &&  yPosition < (SCREEN_HEIGHT - 180)){
+        //O Personagem vai ter a característica de subida
         character.classList.add("turnDown");
-        //A posição no eixo y vai ganhar 10 (VELOCTY)
+        //A posição no eixo y vai ganhar 10 (VELOCTY), fazendo ele descer pois quanto maior o y mais perto da margem inferior
         yPosition += VELOCITY;
     }
 
-    //"Se a tecla setinha para a esquerda for apertada"
-    if(key === "ArrowLeft"){
-        //Imagem do personagem na forma de "indo para esquerda"
+    /*Se a tecla que foi apertada é: setinha para a esquerda
+    E a posição do x é maior que 0*/
+    if(key === "ArrowLeft" &&  xPosition >= 0){
+        //O Personagem vai ter a característica "indo para esquerda"
         character.classList.add("turnLeft");
-        //A posição no eixo y vai perder 10 (VELOCTY)
+        //A posição no eixo x vai perder 10 (VELOCTY), fazendo ele ir para esquerda, pois quanto menor o x, mais próximo da margem esuqerda
         xPosition -= VELOCITY;
     }
 
-    //"Se a tecla setinha para a direita for apertada"
-    if(key === "ArrowRight"){
-        //Imagem do personagem na forma de "indo para direita"
+    /*Se a tecla que foi apertada é: setinha para a esquerda
+    E a posição do x é menor que a largura da tela - 100
+    Estou diminuindo 100 para corrigir e ele ficar certinho na margem, 100 do tamanho do personagem*/
+    if(key === "ArrowRight" && xPosition < (SCREEN_WIDTH - 100)){
+        //O Personagem vai ter a característica de "indo para direita"
         character.classList.add("turnRight");
-        //A posição no eixo y vai ganhar 10 (VELOCTY)"
+        //A posição no eixo x vai ganhar 10 (VELOCTY), fazendo ele ir para direito pois quanto maior o x, mais perto da margem direita"
         xPosition += VELOCITY;
     }
 
-    /*Início das colições
-    Condicionates que vão determinar as colisões do personagem na tela, ou seja, limitar a tela para o personagem não escapar
-    Vaão condicionar a posição atual do personagem nos dois eixos e verificar se são iguais as coordenadas da borda
-    Borda direita: x = 0
-    Borda esquerda: x = SCREEN_WIDTH
-    Borda de cima: y = 0
-    Borda de baixo: y = SCREEN_HEIGHT
-    Nas bordas de baixo e da esquerda eu retirei alguns pixeis para ajustar*/
-
-    //"Se a posição do eixo x for menor ou igual a zero"(O fato de colocar menor ou igual é para evitar algum bug que possa surgir)
-    if(xPosition <= 0){
-        //x = 0, ou seja, o x nessas condições sempre vai ser atrelado a 0, e ele não vai conseguir passar, criando a colisão
-        xPosition = 0;
-    }
-
-    //"Se a posição do eixo x for mmaior ou igual a largura da tela - 100"
-    if(xPosition >= (SCREEN_WIDTH - 100)){
-        //x = SCREEN_WIDTH - 100 (largura da tela -  100)
-        xPosition = (SCREEN_WIDTH - 100);
-    }
-        
-    //"Se a posição do eixo y for menor ou igual a 0"
-    if(yPosition <= 0){
-        //y = 0
-        yPosition = 0;
-    }
-
-    //"Se a posição do eixo y for maior ou igual a altura da tela menos 100"
-    if(yPosition >= (SCREEN_HEIGHT - 180)){
-        //x = SCREEN_WIDTH - 100 (altura da tela -  100)
-        yPosition = (SCREEN_HEIGHT - 180);
-    }
-
-    console.log(SCREEN_HEIGHT)
-
+    //Vai determinar o quanto ele vai estar distante de cima e da esquerda(que suas margens representam x=0 e y=0), a apartir das coordenadas x,y
     containerCharacter.style.top = `${yPosition}px`;
     containerCharacter.style.left = `${xPosition}px`;
 });
